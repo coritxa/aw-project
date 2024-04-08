@@ -1,0 +1,4 @@
+﻿
+## Micro-frontend: News and Statistics
+
+The News and Statistics micro-frontend presents users with agriculture and meat production-related news such as industry developments, sustainability practices, legislation on sourcing standards, along with statistics concerning these topics, such as gas emissions, meat consumption levels and deforestation levels associated with meat production. The decision to create a separate micro-frontend was driven by the unique content it offers (broader knowledge on the meat production landscape, not focused on the characteristics of a particular product) as this is the sole location where users can access this type of information. This requires a team that consistently tags and categorizes the news with accuracy, further emphasizing the need for this functionality to be its own micro-frontend.

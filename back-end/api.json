@@ -1,0 +1,2108 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "web-app-course-api",
+    "description": "The API for the Web App project",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/JuditeRamos/web_app/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Promotions Management",
+      "description": "Manage what is being displayed on the highlights carrousel"
+    },
+    {
+      "name": "Supermarket Management",
+      "description": "Manage the supermarket information on the dropdown menu"
+    },
+    {
+      "name": "News Management",
+      "description": "Manage what is the article being highlighted and what are the other smaller articles"
+    },
+    {
+      "name": "Statistics Management",
+      "description": "Manage statistics cards information"
+    },
+    {
+      "name": "Map Management",
+      "description": "Manage what is the part of the map being displayed when user zooms and pans around"
+    },
+    {
+      "name": "Category Management",
+      "description": "Manages what categories will be displayed (considering the selected supermarket)"
+    },
+    {
+      "name": "Product Management",
+      "description": "Manages what products are being displayed"
+    },
+    {
+      "name": "Highlight Management",
+      "description": "Manages what highlights are being displayed"
+    },
+    {
+      "name": "Product Information Service",
+      "description": "Manages what basic information is being displayed"
+    },
+    {
+      "name": "Product Details Service",
+      "description": "Manages what details are being displayed"
+    },
+    {
+      "name": "Product Feedback Service",
+      "description": "Manages users’ feedbacks"
+    },
+    {
+      "name": "Favourites Service",
+      "description": "Manages the user’s favourite products"
+    }
+  ],
+  "paths": {
+    "/highlights": {
+      "get": {
+        "tags": [
+          "Promotions Management"
+        ],
+        "summary": "Retrieve highlighted promotions",
+        "description": "Get a list of promotions tagged with \"highlights\".",
+        "responses": {
+          "200": {
+            "description": "A list of highlighted promotions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HighlightList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/supermarkets": {
+      "get": {
+        "tags": [
+          "Supermarket Management"
+        ],
+        "summary": "Retrieve a list of supermarkets",
+        "description": "Get a list of all supermarkets.",
+        "responses": {
+          "200": {
+            "description": "A list of supermarkets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupermarketList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Supermarket Management"
+        ],
+        "summary": "Delete all supermarkets",
+        "description": "Delete all supermarkets from the database.",
+        "responses": {
+          "204": {
+            "description": "All supermarkets deleted successfully"
+          }
+        }
+      }
+    },
+    "/supermarkets/{supermarket_id}": {
+      "get": {
+        "tags": [
+          "Supermarket Management"
+        ],
+        "summary": "Retrieve a specific supermarket",
+        "description": "Get details of a supermarket by its ID.",
+        "parameters": [
+          {
+            "name": "supermarket_id",
+            "in": "path",
+            "description": "The ID of the supermarket to retrieve.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the supermarket",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Supermarket"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Supermarket not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Supermarket Management"
+        ],
+        "summary": "Add a specific supermarket",
+        "description": "Add a new supermarket, with a new ID",
+        "parameters": [
+          {
+            "name": "supermarket_id",
+            "in": "path",
+            "description": "The ID of the supermarket to add.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Supermarket"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Supermarket inserted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Supermarket Management"
+        ],
+        "summary": "Delete a specific supermarket",
+        "description": "Delete a supermarket by its ID.",
+        "parameters": [
+          {
+            "name": "supermarket_id",
+            "in": "path",
+            "description": "The ID of the supermarket to delete.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Supermarket deleted successfully"
+          },
+          "404": {
+            "description": "Supermarket not found"
+          }
+        }
+      }
+    },
+    "/news": {
+      "get": {
+        "tags": [
+          "News Management"
+        ],
+        "summary": "Retrieve a list of news articles",
+        "description": "Get a list of all news articles.",
+        "responses": {
+          "200": {
+            "description": "A list of news articles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "News Management"
+        ],
+        "summary": "Update the list of news articles",
+        "description": "Update all news articles in the database.",
+        "requestBody": {
+          "description": "A list of news articles to be updated",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "All news articles updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "News Management"
+        ],
+        "summary": "Delete all news articles",
+        "description": "Delete all news articles from the database.",
+        "responses": {
+          "204": {
+            "description": "All news articles deleted successfully"
+          }
+        }
+      }
+    },
+    "/news/{news_id}": {
+      "get": {
+        "tags": [
+          "News Management"
+        ],
+        "summary": "Retrieve a specific news article",
+        "description": "Get details of a news article by its ID.",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "description": "The ID of the news article to retrieve.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the news article",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewsContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News article not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "News Management"
+        ],
+        "summary": "Add a new news article",
+        "description": "Add a news article with a new ID.",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "description": "The ID of the news article to retrieve.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewsContent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "News article inserted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "News article not inserted"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "News Management"
+        ],
+        "summary": "Delete a specific news article",
+        "description": "Delete a news article by its ID.",
+        "parameters": [
+          {
+            "name": "news_id",
+            "in": "path",
+            "description": "The ID of the news article to delete.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "News article deleted successfully"
+          },
+          "404": {
+            "description": "News article not found"
+          }
+        }
+      }
+    },
+    "/statistics/statistics_list/positive_statistics": {
+      "get": {
+        "tags": [
+          "Statistics Management"
+        ],
+        "summary": "Retrieve positive statistics",
+        "description": "Get a list of all positive statistics.",
+        "responses": {
+          "200": {
+            "description": "A list of positive statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticsList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Statistics Management"
+        ],
+        "summary": "Update positive statistics",
+        "description": "Update the details of positive statistics.",
+        "requestBody": {
+          "description": "The statistics details to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatisticsList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Positive statistics updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Statistics Management"
+        ],
+        "summary": "Delete positive statistics",
+        "description": "Delete all positive statistics.",
+        "responses": {
+          "204": {
+            "description": "Positive statistics deleted successfully"
+          }
+        }
+      }
+    },
+    "/statistics/statistics_list/negative_statistics": {
+      "get": {
+        "tags": [
+          "Statistics Management"
+        ],
+        "summary": "Retrieve negative statistics",
+        "description": "Get a list of all negative statistics.",
+        "responses": {
+          "200": {
+            "description": "A list of negative statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatisticsList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Statistics Management"
+        ],
+        "summary": "Update negative statistics",
+        "description": "Update the details of negative statistics.",
+        "requestBody": {
+          "description": "The statistics details to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatisticsList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Negative statistics updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Statistics Management"
+        ],
+        "summary": "Delete negative statistics",
+        "description": "Delete all negative statistics.",
+        "responses": {
+          "204": {
+            "description": "Negative statistics deleted successfully"
+          }
+        }
+      }
+    },
+    "/map/{location}": {
+      "get": {
+        "tags": [
+          "Map Management"
+        ],
+        "summary": "Retrieve map for a location",
+        "description": "Get a map view for a specific location.",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/location"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Map data for the location"
+          },
+          "404": {
+            "description": "Location not found"
+          }
+        }
+      }
+    },
+    "/map/street_view/{location}": {
+      "get": {
+        "tags": [
+          "Map Management"
+        ],
+        "summary": "Retrieve street view for a location",
+        "description": "Get a street view for a specific location.",
+        "parameters": [
+          {
+            "name": "location",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "$ref": "#/components/schemas/location"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Street view data for the location"
+          },
+          "404": {
+            "description": "Location not found"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Category Management"
+        ],
+        "summary": "Retrieve a list of categories",
+        "description": "Get a list of all categories.",
+        "responses": {
+          "200": {
+            "description": "A list of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{category_id}": {
+      "put": {
+        "tags": [
+          "Category Management"
+        ],
+        "summary": "Add a specific category",
+        "description": "Add a new category with a new ID.",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "description": "The ID of the category to add.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category added successfully"
+          },
+          "404": {
+            "description": "Category not added"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Category Management"
+        ],
+        "summary": "Delete a specific category",
+        "description": "Delete a category by its ID.",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "description": "The ID of the category to delete.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Category deleted successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Retrieve a list of products",
+        "description": "Get a list of all products.",
+        "responses": {
+          "200": {
+            "description": "A list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Update all products",
+        "description": "Update all products in the database.",
+        "requestBody": {
+          "description": "List of products to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "All products updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Delete all products",
+        "description": "Delete all products from the database.",
+        "responses": {
+          "204": {
+            "description": "All products deleted successfully"
+          }
+        }
+      }
+    },
+    "/products/{product_id}": {
+      "get": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Retrieve a specific product",
+        "description": "Get details of a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to retrieve.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Add a new product",
+        "description": "Add a new product with a new ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to add.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product added successfully"
+          },
+          "404": {
+            "description": "Product not added"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Delete a specific product",
+        "description": "Delete a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to delete.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products/highlights": {
+      "get": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Retrieve highlighted products",
+        "description": "Get a list of highlighted products.",
+        "responses": {
+          "200": {
+            "description": "A list of highlighted products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Update all highlighted products",
+        "description": "Update all highlighted products in the database.",
+        "requestBody": {
+          "description": "List of highlighted products to update",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductList"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "All highlighted products updated successfully"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Delete all highlighted products",
+        "description": "Delete all highlighted products from the database.",
+        "responses": {
+          "204": {
+            "description": "All highlighted products deleted successfully"
+          }
+        }
+      }
+    },
+    "/products/highlights/{highlight_id}": {
+      "get": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Retrieve a specific highlighted product",
+        "description": "Get details of a highlighted product by its ID.",
+        "parameters": [
+          {
+            "name": "highlight_id",
+            "in": "path",
+            "description": "The ID of the highlighted product to retrieve.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the highlighted product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Highlighted product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Add a new highlighted product",
+        "description": "Add a highlighted product with a new ID.",
+        "parameters": [
+          {
+            "name": "highlight_id",
+            "in": "path",
+            "description": "The ID of the highlighted product to add.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Highlighted product added successfully"
+          },
+          "404": {
+            "description": "Highlighted product not added"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Management"
+        ],
+        "summary": "Delete a specific highlighted product",
+        "description": "Delete a highlighted product by its ID.",
+        "parameters": [
+          {
+            "name": "highlight_id",
+            "in": "path",
+            "description": "The ID of the highlighted product to delete.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Highlighted product deleted successfully"
+          },
+          "404": {
+            "description": "Highlighted product not found"
+          }
+        }
+      }
+    },
+    "/product/basic_info/{product_id}": {
+      "get": {
+        "tags": [
+          "Product Information Service"
+        ],
+        "summary": "Retrieve basic information for a product",
+        "description": "Get the basic information for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to retrieve basic information for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Basic information of the product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Information Service"
+        ],
+        "summary": "Add basic information for a product",
+        "description": "Add basic information for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to add basic information for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product basic information added successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Information Service"
+        ],
+        "summary": "Delete basic information for a product",
+        "description": "Delete the basic information for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to delete basic information for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product basic information deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/product/details/{product_id}": {
+      "get": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Retrieve details for a product",
+        "description": "Get the details for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to retrieve details for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details of the product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Add details for a product",
+        "description": "Add the details for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to add details for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product details added successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Delete details for a product",
+        "description": "Delete the details for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to delete details for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product details deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/product/details/full_details/{product_id}": {
+      "get": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Retrieve full details for a product",
+        "description": "Get the full details for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to retrieve full details for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full details of the product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Add full details for a product",
+        "description": "Add the full details for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to add full details for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full product details added successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Delete full details for a product",
+        "description": "Delete the full details for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to delete full details for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Full product details deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/product/details/full_details/details_table/{product_id}": {
+      "get": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Retrieve details table for a product",
+        "description": "Get the details table for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to retrieve details table for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details table of the product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Add details table for a product",
+        "description": "Add the details table for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to add details table for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Details table added successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Details Service"
+        ],
+        "summary": "Delete details table for a product",
+        "description": "Delete the details table for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to delete details table for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Details table deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/feedback/{product_id}/{feedback_id}": {
+      "get": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Retrieve a specific feedback entry for a product",
+        "description": "Get a specific feedback entry for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product that received that feedback.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "feedback_id",
+            "in": "path",
+            "description": "The ID of the feedback entry.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Specific feedback retrieved successfully"
+          },
+          "404": {
+            "description": "Feedback not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Update specific feedback for a product",
+        "description": "Update a specific feedback entry for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product the feedback is associated with.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "feedback_id",
+            "in": "path",
+            "description": "The ID of the feedback entry.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated feedback data",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Feedback"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Feedback updated successfully"
+          },
+          "404": {
+            "description": "Feedback not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Delete specific feedback for a product",
+        "description": "Delete a specific feedback entry for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product the feedback was given to.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "feedback_id",
+            "in": "path",
+            "description": "The ID of the feedback entry.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Specific feedback deleted successfully"
+          },
+          "404": {
+            "description": "Feedback not found"
+          }
+        }
+      }
+    },
+    "/feedback/{product_id}": {
+      "get": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Retrieve all feedback for a product",
+        "description": "Get all feedback entries for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to retrieve all feedback entries for.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All feedback retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Add new feedback for a product",
+        "description": "Add new feedback for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product to give feedback to.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Feedback added successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Delete all feedback for a product",
+        "description": "Delete all feedback entries for a product by its ID.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "All feedback deleted successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/feedback": {
+      "get": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Retrieve all feedback",
+        "description": "Get all feedback entries.",
+        "responses": {
+          "200": {
+            "description": "All feedback retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Feedback not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Product Feedback Service"
+        ],
+        "summary": "Delete all feedback",
+        "description": "Delete all feedback entries.",
+        "responses": {
+          "204": {
+            "description": "All feedback deleted successfully"
+          }
+        }
+      }
+    },
+    "/favourites/{user_id}": {
+      "get": {
+        "tags": [
+          "Favourites Service"
+        ],
+        "summary": "Get products in favorites for a user",
+        "description": "Retrieve list of products that are favorited by a user.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The ID of the user.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Products in favorites retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/favourites/{user_id}/{product_id}": {
+      "put": {
+        "tags": [
+          "Favourites Service"
+        ],
+        "summary": "Add a product to favorites for a user",
+        "description": "Add a product to favorites for a user.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The ID of the user.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product being added to favourites.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product added to favourites for the user successfully"
+          },
+          "404": {
+            "description": "Product or user not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Favourites Service"
+        ],
+        "summary": "Remove a product from favourites for a user",
+        "description": "Remove a product from favourites for a user.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The ID of the user.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product removed from favourites for the user successfully"
+          },
+          "404": {
+            "description": "Product or user not found"
+          }
+        }
+      }
+    },
+    "/favourites": {
+      "get": {
+        "tags": [
+          "Favourites Service"
+        ],
+        "summary": "Get products in favorites for someone not logged in",
+        "description": "Retrieve products that are favourited.",
+        "responses": {
+          "200": {
+            "description": "Products in favorites retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Products not found"
+          }
+        }
+      }
+    },
+    "/favourites/{product_id}": {
+      "put": {
+        "tags": [
+          "Favourites Service"
+        ],
+        "summary": "Add a product to favourites for someone not logged in",
+        "description": "Add a product to favourites for someone not logged in.",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product added to favourites successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Favourites Service"
+        ],
+        "summary": "Remove a product from favorites for someone not logged in",
+        "description": "Remove a product from favorites for someone not logged in",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "description": "The ID of the product.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Product removed from favourites successfully"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Supermarket": {
+        "type": "object",
+        "properties": {
+          "supermarket_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        }
+      },
+      "SupermarketList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Supermarket"
+        }
+      },
+      "NewsList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/NewsList_inner"
+        }
+      },
+      "NewsContent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "StatisticsCard": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "string",
+            "enum": [
+              "positive",
+              "negative"
+            ]
+          },
+          "type_of_visualization": {
+            "type": "string",
+            "enum": [
+              "bar plot",
+              "gauge chart"
+            ]
+          }
+        }
+      },
+      "StatisticsList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/StatisticsCard"
+        }
+      },
+      "LocationCoordinates": {
+        "type": "object",
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "float"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "image": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CategoryList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Category"
+        }
+      },
+      "ProductList": {
+        "type": "array",
+        "properties": {
+          "is_highlight": {
+            "type": "boolean"
+          }
+        },
+        "items": {
+          "$ref": "#/components/schemas/ProductSummary"
+        }
+      },
+      "ProductSummary": {
+        "type": "object",
+        "properties": {
+          "product_summary_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "basic_info": {
+            "$ref": "#/components/schemas/Product_basic_info"
+          },
+          "details": {
+            "$ref": "#/components/schemas/Product_details"
+          },
+          "table_data": {
+            "$ref": "#/components/schemas/Product_table_data"
+          },
+          "is_highlight": {
+            "type": "boolean"
+          }
+        }
+      },
+      "FeedbackList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Feedback"
+        }
+      },
+      "Feedback": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "string"
+          }
+        }
+      },
+      "HighlightList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Highlight"
+        }
+      },
+      "Highlight": {
+        "type": "object",
+        "properties": {
+          "highlight_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "location": {
+            "type": "string"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "supermarket_id": {
+            "type": "string",
+            "description": "The ID of the newly inserted supermarket."
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "news_id": {
+            "type": "string"
+          }
+        }
+      },
+      "location": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/LocationCoordinates"
+          },
+          {
+            "type": "object"
+          }
+        ]
+      },
+      "NewsList_inner": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "is_main_flag": {
+            "type": "boolean"
+          },
+          "image": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "Product_basic_info": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "float"
+          },
+          "location": {
+            "type": "string"
+          }
+        }
+      },
+      "Product_details": {
+        "type": "object",
+        "properties": {
+          "producer": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "sex": {
+            "type": "string"
+          },
+          "age": {
+            "type": "string"
+          },
+          "race": {
+            "type": "string"
+          }
+        }
+      },
+      "Product_table_data": {
+        "type": "object",
+        "properties": {
+          "peso_desmame": {
+            "type": "number",
+            "format": "float"
+          },
+          "peso_abate": {
+            "type": "number",
+            "format": "float"
+          },
+          "rendimento": {
+            "type": "number",
+            "format": "float"
+          },
+          "peso_carcaça": {
+            "type": "number",
+            "format": "float"
+          },
+          "ganho_medio_diario": {
+            "type": "number",
+            "format": "float"
+          },
+          "valor_venda": {
+            "type": "number",
+            "format": "float"
+          },
+          "custo_total": {
+            "type": "number",
+            "format": "float"
+          },
+          "margem_bruta": {
+            "type": "number",
+            "format": "float"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "locationParam": {
+        "name": "location",
+        "in": "path",
+        "required": true,
+        "style": "simple",
+        "explode": false,
+        "schema": {
+          "$ref": "#/components/schemas/location"
+        }
+      }
+    }
+  }
+}
